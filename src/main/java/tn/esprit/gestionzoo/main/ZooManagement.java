@@ -1,3 +1,8 @@
+package tn.esprit.gestionzoo.main;
+
+import tn.esprit.gestionzoo.entities.Animal;
+import tn.esprit.gestionzoo.entities.Zoo;
+
 import java.util.Scanner;
 
 public class ZooManagement {
@@ -38,15 +43,16 @@ public class ZooManagement {
 
         // Instruction 5 : create an animal and a zoo and assign their attributes
         Animal lion = new Animal();
-        lion.family = "Felidae";
-        lion.name = "Simba";
-        lion.age = 5;
-        lion.isMammal = true;
+        // Instruction 18 : attributes are private, they are accessed through setters
+        lion.setFamily("Felidae");
+        lion.setName("Simba");
+        lion.setAge(5);
+        lion.setMammal(true);
 
         Zoo myZoo = new Zoo();
-        myZoo.name = zooName;
-        myZoo.city = "Tunis";
-        // Instruction 14 : nbrCages is now the constant Zoo.NBR_CAGES and cannot be assigned
+        myZoo.setName(zooName);
+        myZoo.setCity("Tunis");
+        // Instruction 14 : nbrCages is the constant Zoo.NBR_CAGES and cannot be assigned
 
         // Instruction 6/7 : with only the parameterized constructors, "new Animal()" and "new Zoo()"
         // stop compiling (Java no longer generates the default constructor). Fixed by declaring them.
@@ -99,7 +105,7 @@ public class ZooManagement {
             }
         }
         System.out.println("Animals accepted out of 30 attempts : " + added);
-        System.out.println("Animals in the zoo : " + zoo.nbrAnimals);
+        System.out.println("Animals in the zoo : " + zoo.getNbrAnimals());
         System.out.println("isZooFull after : " + zoo.isZooFull());
 
         // Instruction 16
@@ -107,7 +113,17 @@ public class ZooManagement {
         Zoo zoo2 = new Zoo("Friguia", "Enfidha");
         zoo2.addAnimal(new Animal("Giraffidae", "Gigi", 4, true));
         Zoo biggest = Zoo.compareZoo(zoo, zoo2);
-        System.out.println("The zoo with the most animals is : " + biggest.name);
+        System.out.println("The zoo with the most animals is : " + biggest.getName());
+
+        // Instruction 18 : validation through the setters
+        System.out.println("\n--- encapsulation ---");
+        Animal badAnimal = new Animal("Canidae", "Rex", -2, true);
+        System.out.println(badAnimal);
+        lion.setAge(-5);
+        lion.setAge(6);
+        System.out.println("Lion age : " + lion.getAge());
+        Zoo badZoo = new Zoo("   ", "Sfax");
+        System.out.println(badZoo);
 
         sc.close();
     }

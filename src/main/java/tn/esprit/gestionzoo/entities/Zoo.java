@@ -1,12 +1,15 @@
+package tn.esprit.gestionzoo.entities;
+
 public class Zoo {
 
     // Instruction 14 : nbrCages is now a constant, a zoo can contain at most 25 animals
-    static final int NBR_CAGES = 25;
+    public static final int NBR_CAGES = 25;
 
-    Animal[] animals;
-    String name;
-    String city;
-    int nbrAnimals;   // Instruction 10 : counter of animals actually in the zoo
+    // Instruction 18 : attributes are private (encapsulation)
+    private Animal[] animals;
+    private String name;
+    private String city;
+    private int nbrAnimals;   // Instruction 10 : counter of animals actually in the zoo
 
     // Instruction 7 : explicit default constructor (see Animal)
     public Zoo() {
@@ -16,8 +19,34 @@ public class Zoo {
     // Instruction 14 : nbrCages is no longer a parameter, it is the constant NBR_CAGES
     public Zoo(String name, String city) {
         animals = new Animal[NBR_CAGES];
-        this.name = name;
+        setName(name);
         this.city = city;
+    }
+
+    // Instruction 18 : getters and setters
+    public String getName() {
+        return name;
+    }
+
+    // The name of a zoo must not be empty
+    public void setName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            System.out.println("Error: the name of a zoo cannot be empty. Name not changed.");
+            return;
+        }
+        this.name = name;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public int getNbrAnimals() {
+        return nbrAnimals;
     }
 
     // Instruction 8
@@ -44,12 +73,12 @@ public class Zoo {
         }
     }
 
-    // Instructions 10 + 12 : an animal is added only once and the capacity is never exceeded
+    // Instructions 10 + 12 + 17 : an animal is added only once and the capacity is never exceeded
     public boolean addAnimal(Animal animal) {
         if (animal == null) {
             return false;
         }
-        if (nbrAnimals >= NBR_CAGES) {
+        if (isZooFull()) {   // Instruction 17
             return false;
         }
         if (searchAnimal(animal) != -1) {
@@ -62,11 +91,11 @@ public class Zoo {
 
     // Instruction 11 : search by name, return the index or -1
     public int searchAnimal(Animal animal) {
-        if (animal == null || animal.name == null) {
+        if (animal == null || animal.getName() == null) {
             return -1;
         }
         for (int i = 0; i < nbrAnimals; i++) {
-            if (animal.name.equalsIgnoreCase(animals[i].name)) {
+            if (animal.getName().equalsIgnoreCase(animals[i].getName())) {
                 return i;
             }
         }
