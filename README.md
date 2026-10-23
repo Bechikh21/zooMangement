@@ -1,6 +1,6 @@
-# Zoo Management - Prosit 2
+# Zoo Management - Prosit 3
 
-ESPRIT TECH zoo management project. Contains prosit 1 plus the `Animal` and `Zoo` classes.
+ESPRIT TECH zoo management project. Contains prosits 1-2 plus the Zoo capacity rules.
 
 ## Instructions covered
 - **5**: `Animal` (family, name, age, isMammal) and `Zoo` (animals, name, city, nbrCages); a lion and a zoo are created in main.
@@ -12,6 +12,10 @@ ESPRIT TECH zoo management project. Contains prosit 1 plus the `Animal` and `Zoo
 - **11**: `displayAnimals()` and `searchAnimal()` (search by name, returns the index or -1). *Observation*: an identical copy of an animal is found at the same index because names are compared.
 - **12**: an animal is added only once, and the capacity (max 25) is never exceeded.
 - **13**: `removeAnimal()`.
+
+- **14**: `nbrCages` becomes the constant `NBR_CAGES = 25`; the constructor is now `Zoo(String name, String city)`.
+- **15**: `isZooFull()`.
+- **16**: `static Zoo compareZoo(Zoo z1, Zoo z2)` returns the zoo with the most animals.
 
 ## Run
 ```

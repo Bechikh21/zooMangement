@@ -46,13 +46,13 @@ public class ZooManagement {
         Zoo myZoo = new Zoo();
         myZoo.name = zooName;
         myZoo.city = "Tunis";
-        myZoo.nbrCages = nbrCages;
+        // Instruction 14 : nbrCages is now the constant Zoo.NBR_CAGES and cannot be assigned
 
         // Instruction 6/7 : with only the parameterized constructors, "new Animal()" and "new Zoo()"
         // stop compiling (Java no longer generates the default constructor). Fixed by declaring them.
         Animal tiger = new Animal("Felidae", "Shere Khan", 7, true);
         Animal eagle = new Animal("Accipitridae", "Aquila", 3, false);
-        Zoo zoo = new Zoo(zooName, "Tunis", 3);
+        Zoo zoo = new Zoo(zooName, "Tunis");
 
         // Instruction 8 / 9
         System.out.println("\n--- displayZoo() ---");
@@ -62,13 +62,11 @@ public class ZooManagement {
         System.out.println(zoo.toString());   // same result: println calls toString() implicitly
         System.out.println(lion);
 
-        // Instruction 10 : add more animals than there are cages (3)
+        // Instruction 10
         System.out.println("\n--- addAnimal ---");
         System.out.println("Add lion  : " + zoo.addAnimal(lion));
         System.out.println("Add tiger : " + zoo.addAnimal(tiger));
         System.out.println("Add eagle : " + zoo.addAnimal(eagle));
-        System.out.println("Add bear  : " + zoo.addAnimal(new Animal("Ursidae", "Baloo", 10, true)));
-        // Without the capacity check, the 4th add throws ArrayIndexOutOfBoundsException.
 
         // Instruction 11
         System.out.println("\n--- displayAnimals ---");
@@ -90,6 +88,26 @@ public class ZooManagement {
         System.out.println("Remove tiger : " + zoo.removeAnimal(tiger));
         System.out.println("Remove tiger again : " + zoo.removeAnimal(tiger));
         zoo.displayAnimals();
+
+        // Instruction 15 : fill the zoo beyond its 25 cages
+        System.out.println("\n--- isZooFull (max " + Zoo.NBR_CAGES + ") ---");
+        System.out.println("isZooFull before : " + zoo.isZooFull());
+        int added = 0;
+        for (int i = 1; i <= 30; i++) {
+            if (zoo.addAnimal(new Animal("Family" + i, "Animal" + i, i, true))) {
+                added++;
+            }
+        }
+        System.out.println("Animals accepted out of 30 attempts : " + added);
+        System.out.println("Animals in the zoo : " + zoo.nbrAnimals);
+        System.out.println("isZooFull after : " + zoo.isZooFull());
+
+        // Instruction 16
+        System.out.println("\n--- compareZoo ---");
+        Zoo zoo2 = new Zoo("Friguia", "Enfidha");
+        zoo2.addAnimal(new Animal("Giraffidae", "Gigi", 4, true));
+        Zoo biggest = Zoo.compareZoo(zoo, zoo2);
+        System.out.println("The zoo with the most animals is : " + biggest.name);
 
         sc.close();
     }

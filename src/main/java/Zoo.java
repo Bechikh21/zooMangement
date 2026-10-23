@@ -1,36 +1,34 @@
 public class Zoo {
 
-    // Instruction 5 / 12 : a zoo can contain at most 25 animals
-    static final int MAX_ANIMALS = 25;
+    // Instruction 14 : nbrCages is now a constant, a zoo can contain at most 25 animals
+    static final int NBR_CAGES = 25;
 
     Animal[] animals;
     String name;
     String city;
-    int nbrCages;
     int nbrAnimals;   // Instruction 10 : counter of animals actually in the zoo
 
     // Instruction 7 : explicit default constructor (see Animal)
     public Zoo() {
-        animals = new Animal[MAX_ANIMALS];
+        animals = new Animal[NBR_CAGES];
     }
 
-    // Instruction 6
-    public Zoo(String name, String city, int nbrCages) {
-        animals = new Animal[nbrCages];
+    // Instruction 14 : nbrCages is no longer a parameter, it is the constant NBR_CAGES
+    public Zoo(String name, String city) {
+        animals = new Animal[NBR_CAGES];
         this.name = name;
         this.city = city;
-        this.nbrCages = nbrCages;
     }
 
     // Instruction 8
     public void displayZoo() {
-        System.out.println("Name: " + name + " | City: " + city + " | Number of cages: " + nbrCages);
+        System.out.println("Name: " + name + " | City: " + city + " | Number of cages: " + NBR_CAGES);
     }
 
     // Instruction 9 : without toString(), println(myZoo) prints "Zoo@1b6d3586" (class name + hash code)
     @Override
     public String toString() {
-        return "Zoo{name='" + name + "', city='" + city + "', nbrCages=" + nbrCages
+        return "Zoo{name='" + name + "', city='" + city + "', nbrCages=" + NBR_CAGES
                 + ", nbrAnimals=" + nbrAnimals + "}";
     }
 
@@ -51,7 +49,7 @@ public class Zoo {
         if (animal == null) {
             return false;
         }
-        if (nbrAnimals >= animals.length || nbrAnimals >= MAX_ANIMALS) {
+        if (nbrAnimals >= NBR_CAGES) {
             return false;
         }
         if (searchAnimal(animal) != -1) {
@@ -87,5 +85,17 @@ public class Zoo {
         animals[nbrAnimals - 1] = null;
         nbrAnimals--;
         return true;
+    }
+
+    // Instruction 15
+    public boolean isZooFull() {
+        return nbrAnimals >= NBR_CAGES;
+    }
+
+    // Instruction 16 : returns the zoo with the most animals
+    public static Zoo compareZoo(Zoo z1, Zoo z2) {
+        if (z1 == null) return z2;
+        if (z2 == null) return z1;
+        return (z2.nbrAnimals > z1.nbrAnimals) ? z2 : z1;
     }
 }
