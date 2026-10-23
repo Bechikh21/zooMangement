@@ -2,11 +2,11 @@ package tn.esprit.gestionzoo.entities;
 
 public class Animal {
 
-    // Instruction 5 / 18 : attributes are private (encapsulation)
-    private String family;
-    private String name;
-    private int age;
-    private boolean isMammal;
+    // Instruction 5 / 18 / 22 : attributes are protected so subclasses can use them
+    protected String family;
+    protected String name;
+    protected int age;
+    protected boolean isMammal;
 
     // Instruction 7 : adding a parameterized constructor removes the implicit default
     // constructor, so "new Animal()" in main no longer compiles. We declare it explicitly.

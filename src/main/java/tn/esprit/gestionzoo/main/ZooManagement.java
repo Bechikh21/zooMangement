@@ -1,6 +1,10 @@
 package tn.esprit.gestionzoo.main;
 
 import tn.esprit.gestionzoo.entities.Animal;
+import tn.esprit.gestionzoo.entities.Aquatic;
+import tn.esprit.gestionzoo.entities.Dolphin;
+import tn.esprit.gestionzoo.entities.Penguin;
+import tn.esprit.gestionzoo.entities.Terrestrial;
 import tn.esprit.gestionzoo.entities.Zoo;
 
 import java.util.Scanner;
@@ -124,6 +128,35 @@ public class ZooManagement {
         System.out.println("Lion age : " + lion.getAge());
         Zoo badZoo = new Zoo("   ", "Sfax");
         System.out.println(badZoo);
+
+        // Instruction 21 : instances created with the default constructors
+        // Instruction 22 : after adding the parameterized constructors, these lines stopped compiling
+        // (no more implicit default constructor); fixed by declaring the default constructors explicitly.
+        System.out.println("\n--- inheritance ---");
+        Aquatic aquatic = new Aquatic();
+        Terrestrial terrestrial = new Terrestrial();
+        Dolphin dolphin = new Dolphin();
+        Penguin penguin = new Penguin();
+        System.out.println(aquatic);
+        System.out.println(terrestrial);
+        System.out.println(dolphin);
+        System.out.println(penguin);
+
+        // Instruction 22 / 23 : parameterized constructors and redefined toString()
+        Aquatic shark = new Aquatic("Lamnidae", "Bruce", 12, false, "Ocean");
+        Terrestrial elephant = new Terrestrial("Elephantidae", "Dumbo", 8, true, 4);
+        Dolphin flipper = new Dolphin("Delphinidae", "Flipper", 6, true, "Sea", 35.5f);
+        Penguin pingu = new Penguin("Spheniscidae", "Pingu", 3, false, "Antarctica", 120.0f);
+        System.out.println(shark);
+        System.out.println(elephant);
+        System.out.println(flipper);
+        System.out.println(pingu);
+
+        // Instruction 24 : the Penguin does not redefine swim(), so it inherits the Aquatic version
+        System.out.println("\n--- swim() ---");
+        shark.swim();    // This aquatic animal is swimming
+        flipper.swim();  // This dolphin is swimming
+        pingu.swim();    // This aquatic animal is swimming
 
         sc.close();
     }
