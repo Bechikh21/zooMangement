@@ -1,6 +1,6 @@
-# Zoo Management - Prosit 5
+# Zoo Management - Prosit 6
 
-ESPRIT TECH zoo management project. Contains prosits 1-4 plus inheritance.
+ESPRIT TECH zoo management project. Contains prosits 1-5 plus polymorphism and abstract classes.
 
 ## Instructions covered
 - **5**: `Animal` (family, name, age, isMammal) and `Zoo` (animals, name, city, nbrCages); a lion and a zoo are created in main.
@@ -26,6 +26,14 @@ ESPRIT TECH zoo management project. Contains prosits 1-4 plus inheritance.
 - **22**: parameterized constructors calling `super(...)`; the `Animal` attributes become `protected`. *Observation*: the default-constructor calls in main stop compiling because Java no longer generates them; fixed by declaring the default constructors explicitly.
 - **23**: `toString()` redefined in every subclass.
 - **24**: `swim()` in `Aquatic` and `Dolphin`. *Observation*: `Penguin` does not redefine it, so it prints the inherited "This aquatic animal is swimming" while the dolphin prints "This dolphin is swimming" (overriding).
+
+- **25**: `aquaticAnimals` array in `Zoo` (max 10).
+- **26**: `addAquaticAnimal(Aquatic aquatic)`; aquatic animals are added to a zoo in main.
+- **27**: `swim()` is called on every aquatic animal of the zoo. *Observation*: although the array is typed `Aquatic`, each object runs the `swim()` of its real class (polymorphism / dynamic binding).
+- **28**: `swim()` is `abstract` in `Aquatic` (so `Aquatic` becomes abstract and can no longer be instantiated); `Penguin` now redefines it.
+- **29**: `maxPenguinSwimmingDepth()`.
+- **30**: `displayNumberOfAquaticsByType()`.
+- **31**: `equals()` (and `hashCode()`) redefined in `Aquatic`: same name, same age and same habitat.
 
 ## Run
 ```

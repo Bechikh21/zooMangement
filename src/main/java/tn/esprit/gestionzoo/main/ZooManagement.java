@@ -133,30 +133,54 @@ public class ZooManagement {
         // Instruction 22 : after adding the parameterized constructors, these lines stopped compiling
         // (no more implicit default constructor); fixed by declaring the default constructors explicitly.
         System.out.println("\n--- inheritance ---");
-        Aquatic aquatic = new Aquatic();
+        // Instruction 28 : Aquatic is now abstract and can no longer be instantiated
+        // Aquatic aquatic = new Aquatic();
         Terrestrial terrestrial = new Terrestrial();
         Dolphin dolphin = new Dolphin();
         Penguin penguin = new Penguin();
-        System.out.println(aquatic);
         System.out.println(terrestrial);
         System.out.println(dolphin);
         System.out.println(penguin);
 
         // Instruction 22 / 23 : parameterized constructors and redefined toString()
-        Aquatic shark = new Aquatic("Lamnidae", "Bruce", 12, false, "Ocean");
+        // Aquatic shark = new Aquatic("Lamnidae", "Bruce", 12, false, "Ocean");   // abstract since instruction 28
         Terrestrial elephant = new Terrestrial("Elephantidae", "Dumbo", 8, true, 4);
         Dolphin flipper = new Dolphin("Delphinidae", "Flipper", 6, true, "Sea", 35.5f);
         Penguin pingu = new Penguin("Spheniscidae", "Pingu", 3, false, "Antarctica", 120.0f);
-        System.out.println(shark);
         System.out.println(elephant);
         System.out.println(flipper);
         System.out.println(pingu);
 
-        // Instruction 24 : the Penguin does not redefine swim(), so it inherits the Aquatic version
+        // Instruction 24 / 28 : since swim() is abstract, Penguin redefines it too
         System.out.println("\n--- swim() ---");
-        shark.swim();    // This aquatic animal is swimming
         flipper.swim();  // This dolphin is swimming
-        pingu.swim();    // This aquatic animal is swimming
+        pingu.swim();    // This penguin is swimming
+
+        // Instruction 26
+        System.out.println("\n--- aquatic animals of the zoo ---");
+        zoo2.addAquaticAnimal(flipper);
+        zoo2.addAquaticAnimal(pingu);
+        zoo2.addAquaticAnimal(new Dolphin("Delphinidae", "Echo", 4, true, "Sea", 40.0f));
+        zoo2.addAquaticAnimal(new Penguin("Spheniscidae", "Skipper", 5, false, "Antarctica", 250.5f));
+        zoo2.addAquaticAnimal(new Penguin("Spheniscidae", "Kowalski", 4, false, "Antarctica", 180.0f));
+
+        // Instruction 27 : each element is declared as Aquatic but runs the swim() of its real type
+        // (dynamic binding / polymorphism)
+        zoo2.makeAquaticAnimalsSwim();
+
+        // Instruction 29
+        System.out.println("Max penguin swimming depth : " + zoo2.maxPenguinSwimmingDepth());
+
+        // Instruction 30
+        zoo2.displayNumberOfAquaticsByType();
+
+        // Instruction 31
+        System.out.println("\n--- equals() ---");
+        Penguin pinguCopy = new Penguin("Spheniscidae", "Pingu", 3, false, "Antarctica", 50.0f);
+        Penguin pinguElsewhere = new Penguin("Spheniscidae", "Pingu", 3, false, "Zoo pool", 120.0f);
+        System.out.println("pingu.equals(pinguCopy) : " + pingu.equals(pinguCopy));             // true
+        System.out.println("pingu.equals(pinguElsewhere) : " + pingu.equals(pinguElsewhere));   // false
+        System.out.println("pingu.equals(flipper) : " + pingu.equals(flipper));                 // false
 
         sc.close();
     }

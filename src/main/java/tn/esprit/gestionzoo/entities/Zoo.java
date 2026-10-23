@@ -9,7 +9,12 @@ public class Zoo {
     private Animal[] animals;
     private String name;
     private String city;
-    private int nbrAnimals;   // Instruction 10 : counter of animals actually in the zoo
+    private int nbrAnimals;
+
+    // Instruction 25 : up to 10 aquatic animals
+    public static final int MAX_AQUATIC_ANIMALS = 10;
+    private Aquatic[] aquaticAnimals = new Aquatic[MAX_AQUATIC_ANIMALS];
+    private int nbrAquaticAnimals;   // Instruction 10 : counter of animals actually in the zoo
 
     // Instruction 7 : explicit default constructor (see Animal)
     public Zoo() {
@@ -126,5 +131,58 @@ public class Zoo {
         if (z1 == null) return z2;
         if (z2 == null) return z1;
         return (z2.nbrAnimals > z1.nbrAnimals) ? z2 : z1;
+    }
+
+    // Instruction 26
+    public void addAquaticAnimal(Aquatic aquatic) {
+        if (aquatic == null) {
+            return;
+        }
+        if (nbrAquaticAnimals >= MAX_AQUATIC_ANIMALS) {
+            System.out.println("Cannot add " + aquatic.getName() + ": the aquatic area of " + name + " is full.");
+            return;
+        }
+        aquaticAnimals[nbrAquaticAnimals] = aquatic;
+        nbrAquaticAnimals++;
+    }
+
+    public int getNbrAquaticAnimals() {
+        return nbrAquaticAnimals;
+    }
+
+    // Instruction 27 : each animal runs its own version of swim() (polymorphism)
+    public void makeAquaticAnimalsSwim() {
+        for (int i = 0; i < nbrAquaticAnimals; i++) {
+            aquaticAnimals[i].swim();
+        }
+    }
+
+    // Instruction 29 : maximum swimming depth of the penguins (0 if there is no penguin)
+    public float maxPenguinSwimmingDepth() {
+        float max = 0;
+        for (int i = 0; i < nbrAquaticAnimals; i++) {
+            if (aquaticAnimals[i] instanceof Penguin) {
+                float depth = ((Penguin) aquaticAnimals[i]).getSwimmingDepth();
+                if (depth > max) {
+                    max = depth;
+                }
+            }
+        }
+        return max;
+    }
+
+    // Instruction 30
+    public void displayNumberOfAquaticsByType() {
+        int nbrDolphins = 0;
+        int nbrPenguins = 0;
+        for (int i = 0; i < nbrAquaticAnimals; i++) {
+            if (aquaticAnimals[i] instanceof Dolphin) {
+                nbrDolphins++;
+            } else if (aquaticAnimals[i] instanceof Penguin) {
+                nbrPenguins++;
+            }
+        }
+        System.out.println("Number of dolphins: " + nbrDolphins);
+        System.out.println("Number of penguins: " + nbrPenguins);
     }
 }

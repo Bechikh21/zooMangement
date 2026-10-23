@@ -23,6 +23,12 @@ public class Penguin extends Aquatic {
         this.swimmingDepth = swimmingDepth;
     }
 
+    // Instruction 28 : swim() is abstract in Aquatic, so Penguin must redefine it
+    @Override
+    public void swim() {
+        System.out.println("This penguin is swimming");
+    }
+
     // Instruction 23
     @Override
     public String toString() {
