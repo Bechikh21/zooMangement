@@ -1,9 +1,12 @@
 package tn.esprit.gestionzoo.entities;
 
+import tn.esprit.gestionzoo.exceptions.InvalidAgeException;
+import tn.esprit.gestionzoo.exceptions.ZooFullException;
+
 public class Zoo {
 
     // Instruction 14 : nbrCages is now a constant, a zoo can contain at most 25 animals
-    public static final int NBR_CAGES = 25;
+    public static final int NBR_CAGES = 3;
 
     // Instruction 18 : attributes are private (encapsulation)
     private Animal[] animals;
@@ -79,19 +82,24 @@ public class Zoo {
     }
 
     // Instructions 10 + 12 + 17 : an animal is added only once and the capacity is never exceeded
-    public boolean addAnimal(Animal animal) {
+    public void addAnimal(Animal animal) throws ZooFullException, InvalidAgeException {
         if (animal == null) {
-            return false;
+            return;
         }
-        if (isZooFull()) {   // Instruction 17
-            return false;
+        if (animal.getAge() < 0) {
+            throw new InvalidAgeException("Cannot add " + animal.getName()
+                    + ": the age of an animal cannot be negative (" + animal.getAge() + ").");
         }
         if (searchAnimal(animal) != -1) {
-            return false;
+            System.out.println(animal.getName() + " is already in the zoo.");
+            return;
+        }
+        if (nbrAnimals >= NBR_CAGES) {
+            throw new ZooFullException("Cannot add " + animal.getName()
+                    + ": the zoo " + name + " is full (" + NBR_CAGES + " cages).");
         }
         animals[nbrAnimals] = animal;
         nbrAnimals++;
-        return true;
     }
 
     // Instruction 11 : search by name, return the index or -1

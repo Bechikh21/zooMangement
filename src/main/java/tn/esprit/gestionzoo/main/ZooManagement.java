@@ -6,10 +6,24 @@ import tn.esprit.gestionzoo.entities.Dolphin;
 import tn.esprit.gestionzoo.entities.Penguin;
 import tn.esprit.gestionzoo.entities.Terrestrial;
 import tn.esprit.gestionzoo.entities.Zoo;
+import tn.esprit.gestionzoo.exceptions.InvalidAgeException;
+import tn.esprit.gestionzoo.exceptions.ZooFullException;
 
 import java.util.Scanner;
 
 public class ZooManagement {
+
+    private static void addAnimal(Zoo zoo, Animal animal) {
+        try {
+            zoo.addAnimal(animal);
+        } catch (ZooFullException e) {
+            System.out.println("ZooFullException: " + e.getMessage());
+        } catch (InvalidAgeException e) {
+            System.out.println("InvalidAgeException: " + e.getMessage());
+        } finally {
+            System.out.println("Number of animals in " + zoo.getName() + " : " + zoo.getNbrAnimals());
+        }
+    }
 
     public static void main(String[] args) {
 
@@ -74,9 +88,9 @@ public class ZooManagement {
 
         // Instruction 10
         System.out.println("\n--- addAnimal ---");
-        System.out.println("Add lion  : " + zoo.addAnimal(lion));
-        System.out.println("Add tiger : " + zoo.addAnimal(tiger));
-        System.out.println("Add eagle : " + zoo.addAnimal(eagle));
+        addAnimal(zoo, lion);
+        addAnimal(zoo, tiger);
+        addAnimal(zoo, eagle);
 
         // Instruction 11
         System.out.println("\n--- displayAnimals ---");
@@ -90,8 +104,8 @@ public class ZooManagement {
 
         // Instruction 12 : uniqueness
         System.out.println("\n--- uniqueness ---");
-        System.out.println("Add the lion again : " + zoo.addAnimal(lion));
-        System.out.println("Add the identical copy : " + zoo.addAnimal(lionCopy));
+        addAnimal(zoo, lion);
+        addAnimal(zoo, lionCopy);
 
         // Instruction 13
         System.out.println("\n--- removeAnimal ---");
@@ -99,23 +113,17 @@ public class ZooManagement {
         System.out.println("Remove tiger again : " + zoo.removeAnimal(tiger));
         zoo.displayAnimals();
 
-        // Instruction 15 : fill the zoo beyond its 25 cages
-        System.out.println("\n--- isZooFull (max " + Zoo.NBR_CAGES + ") ---");
+        System.out.println("\n--- ZooFullException (max " + Zoo.NBR_CAGES + ") ---");
         System.out.println("isZooFull before : " + zoo.isZooFull());
-        int added = 0;
-        for (int i = 1; i <= 30; i++) {
-            if (zoo.addAnimal(new Animal("Family" + i, "Animal" + i, i, true))) {
-                added++;
-            }
+        for (int i = 1; i <= 3; i++) {
+            addAnimal(zoo, new Animal("Family" + i, "Animal" + i, i, true));
         }
-        System.out.println("Animals accepted out of 30 attempts : " + added);
-        System.out.println("Animals in the zoo : " + zoo.getNbrAnimals());
         System.out.println("isZooFull after : " + zoo.isZooFull());
 
         // Instruction 16
         System.out.println("\n--- compareZoo ---");
         Zoo zoo2 = new Zoo("Friguia", "Enfidha");
-        zoo2.addAnimal(new Animal("Giraffidae", "Gigi", 4, true));
+        addAnimal(zoo2, new Animal("Giraffidae", "Gigi", 4, true));
         Zoo biggest = Zoo.compareZoo(zoo, zoo2);
         System.out.println("The zoo with the most animals is : " + biggest.getName());
 
@@ -123,6 +131,8 @@ public class ZooManagement {
         System.out.println("\n--- encapsulation ---");
         Animal badAnimal = new Animal("Canidae", "Rex", -2, true);
         System.out.println(badAnimal);
+        zoo.removeAnimal(eagle);
+        addAnimal(zoo, badAnimal);
         lion.setAge(-5);
         lion.setAge(6);
         System.out.println("Lion age : " + lion.getAge());
