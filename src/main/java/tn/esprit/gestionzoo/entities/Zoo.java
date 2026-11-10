@@ -1,10 +1,13 @@
 package tn.esprit.gestionzoo.entities;
 
+import tn.esprit.gestionzoo.exceptions.InvalidAgeException;
+import tn.esprit.gestionzoo.exceptions.ZooFullException;
+
 
 public class Zoo {
 
 
-    public static final int NBR_CAGES = 25;
+    public static final int NBR_CAGES = 3;   // Instruction 33 : reduced to 3 cages
 
     private Animal[] animals;
     private String name;
@@ -79,19 +82,28 @@ public class Zoo {
 
 
 
-    public boolean addAnimal(Animal animal) {
+    // Instruction 32 : return type changed from boolean to void, "zoo full" test removed
+    // Instruction 33 : throws ZooFullException when there is no free cage
+    // Instruction 34 : throws InvalidAgeException when the animal has a negative age
+    public void addAnimal(Animal animal) throws ZooFullException, InvalidAgeException {
         if (animal == null) {
-            return false;
+            System.out.println("Error: cannot add a null animal.");
+            return;
         }
-        if (isZooFull()) {
-            return false;
+        if (animal.getAge() < 0) {
+            throw new InvalidAgeException("Cannot add " + animal.getName()
+                    + ": the age of an animal cannot be negative (" + animal.getAge() + ").");
         }
         if (searchAnimal(animal) != -1) {
-            return false;
+            System.out.println("Error: " + animal.getName() + " is already in the zoo.");
+            return;
+        }
+        if (nbrAnimals >= NBR_CAGES) {
+            throw new ZooFullException("Cannot add " + animal.getName()
+                    + ": the zoo " + name + " is full (" + NBR_CAGES + " cages).");
         }
         animals[nbrAnimals] = animal;
         nbrAnimals++;
-        return true;
     }
 
     // Instruction 11 : search by name, return the index or -1

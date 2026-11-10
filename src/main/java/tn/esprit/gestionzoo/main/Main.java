@@ -3,11 +3,31 @@ package tn.esprit.gestionzoo.main;
 
 import tn.esprit.gestionzoo.entities.Animal;
 import tn.esprit.gestionzoo.entities.Zoo;
+import tn.esprit.gestionzoo.exceptions.InvalidAgeException;
+import tn.esprit.gestionzoo.exceptions.ZooFullException;
 
 import java.util.Scanner;
 
 
 public class Main {
+
+    // Instructions 33 & 34 : adds an animal, handles the exceptions,
+    // and ALWAYS displays the number of animals (finally block)
+    private static void addAnimal(Zoo zoo, Animal animal) {
+        int before = zoo.getNbrAnimals();
+        try {
+            zoo.addAnimal(animal);
+            if (zoo.getNbrAnimals() > before) {
+                System.out.println(animal.getName() + " added to " + zoo.getName() + ".");
+            }
+        } catch (ZooFullException e) {
+            System.out.println("ZooFullException: " + e.getMessage());
+        } catch (InvalidAgeException e) {
+            System.out.println("InvalidAgeException: " + e.getMessage());
+        } finally {
+            System.out.println("Number of animals in " + zoo.getName() + " : " + zoo.getNbrAnimals());
+        }
+    }
 
     public static void main(String[] args) {
 
@@ -59,9 +79,9 @@ public class Main {
 
 
         System.out.println("\n--- addAnimal ---");
-        System.out.println("Add lion  : " + myZoo.addAnimal(lion));
-        System.out.println("Add tiger : " + myZoo.addAnimal(tiger));
-        System.out.println("Add eagle : " + myZoo.addAnimal(eagle));
+        addAnimal(myZoo, lion);
+        addAnimal(myZoo, tiger);
+        addAnimal(myZoo, eagle);
 
 
         System.out.println("\n--- displayAnimals ---");
@@ -75,9 +95,10 @@ public class Main {
         System.out.println("Search an animal not in the zoo : " + myZoo.searchAnimal(unknown));
 
 
-        System.out.println("\n--- uniqueness ---");
-        System.out.println("Add the lion again : " + myZoo.addAnimal(lion));
-        System.out.println("Add the identical copy : " + myZoo.addAnimal(lionCopy));
+        System.out.println("\n--- Instruction 33 : ZooFullException (" + Zoo.NBR_CAGES + " cages) ---");
+        System.out.println("isZooFull : " + myZoo.isZooFull());
+        addAnimal(myZoo, unknown);                 // the zoo already has 3 animals -> ZooFullException
+        addAnimal(myZoo, new Animal("Canidae", "Rex", 2, true));
 
 
         System.out.println("\n--- removeAnimal ---");
@@ -86,32 +107,20 @@ public class Main {
         myZoo.displayAnimals();
 
 
-        System.out.println("\n--- filling the zoo (max " + Zoo.NBR_CAGES + ") ---");
-        System.out.println("isZooFull before : " + myZoo.isZooFull());
-        int added = 0;
-        for (int i = 1; i <= 30; i++) {   // try to add 30 animals, more than the 25 cages
-            if (myZoo.addAnimal(new Animal("Family" + i, "Animal" + i, i, true))) {
-                added++;
-            }
-        }
-        System.out.println("Animals accepted out of 30 attempts : " + added);
-        System.out.println("Animals in the zoo : " + myZoo.getNbrAnimals());
-        System.out.println("isZooFull after : " + myZoo.isZooFull());
+        System.out.println("\n--- Instruction 34 : InvalidAgeException ---");
+        Animal badAnimal = new Animal("Canidae", "Rex", -2, true);
+        addAnimal(myZoo, badAnimal);               // negative age -> InvalidAgeException
+        addAnimal(myZoo, unknown);                 // a free cage again -> added
 
 
         System.out.println("\n--- compareZoo ---");
         Zoo zoo2 = new Zoo("Friguia", "Enfidha");
-        zoo2.addAnimal(new Animal("Giraffidae", "Gigi", 4, true));
+        addAnimal(zoo2, new Animal("Giraffidae", "Gigi", 4, true));
         Zoo biggest = Zoo.compareZoo(myZoo, zoo2);
         System.out.println("The zoo with the most animals is : " + biggest.getName());
 
 
         System.out.println("\n--- encapsulation ---");
-        Animal badAnimal = new Animal("Canidae", "Rex", -2, true);
-        System.out.println(badAnimal);
-        lion.setAge(-5);
-        lion.setAge(6);
-        System.out.println("Lion age : " + lion.getAge());
         Zoo badZoo = new Zoo("   ", "Sfax");
         System.out.println(badZoo);
 

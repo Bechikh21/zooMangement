@@ -16,7 +16,9 @@ public class Animal {
     public Animal(String family, String name, int age, boolean isMammal) {
         this.family = family;
         this.name = name;
-        setAge(age);
+        // Instruction 34 : the age is no longer checked here,
+        // the Zoo raises an InvalidAgeException when adding an animal with a negative age
+        this.age = age;
         this.isMammal = isMammal;
     }
 
@@ -44,10 +46,6 @@ public class Animal {
 
 
     public void setAge(int age) {
-        if (age < 0) {
-            System.out.println("Error: the age of an animal cannot be negative (" + age + "). Age not changed.");
-            return;
-        }
         this.age = age;
     }
 
