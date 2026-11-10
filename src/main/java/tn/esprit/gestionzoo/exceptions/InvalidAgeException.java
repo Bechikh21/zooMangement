@@ -1,6 +1,5 @@
 package tn.esprit.gestionzoo.exceptions;
 
-// Instruction 34 : custom exception raised when an animal has a negative age
 public class InvalidAgeException extends Exception {
 
     public InvalidAgeException() {

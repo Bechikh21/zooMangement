@@ -16,8 +16,6 @@ public class Animal {
     public Animal(String family, String name, int age, boolean isMammal) {
         this.family = family;
         this.name = name;
-        // Instruction 34 : the age is no longer checked here,
-        // the Zoo raises an InvalidAgeException when adding an animal with a negative age
         this.age = age;
         this.isMammal = isMammal;
     }

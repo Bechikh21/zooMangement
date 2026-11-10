@@ -7,7 +7,7 @@ import tn.esprit.gestionzoo.exceptions.ZooFullException;
 public class Zoo {
 
 
-    public static final int NBR_CAGES = 3;   // Instruction 33 : reduced to 3 cages
+    public static final int NBR_CAGES = 3;
 
     private Animal[] animals;
     private String name;
@@ -82,9 +82,6 @@ public class Zoo {
 
 
 
-    // Instruction 32 : return type changed from boolean to void, "zoo full" test removed
-    // Instruction 33 : throws ZooFullException when there is no free cage
-    // Instruction 34 : throws InvalidAgeException when the animal has a negative age
     public void addAnimal(Animal animal) throws ZooFullException, InvalidAgeException {
         if (animal == null) {
             System.out.println("Error: cannot add a null animal.");

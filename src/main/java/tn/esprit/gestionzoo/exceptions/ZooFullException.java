@@ -1,6 +1,5 @@
 package tn.esprit.gestionzoo.exceptions;
 
-// Instruction 33 : custom exception raised when the zoo has no free cage left
 public class ZooFullException extends Exception {
 
     public ZooFullException() {

@@ -11,8 +11,6 @@ import java.util.Scanner;
 
 public class Main {
 
-    // Instructions 33 & 34 : adds an animal, handles the exceptions,
-    // and ALWAYS displays the number of animals (finally block)
     private static void addAnimal(Zoo zoo, Animal animal) {
         int before = zoo.getNbrAnimals();
         try {
@@ -97,7 +95,7 @@ public class Main {
 
         System.out.println("\n--- Instruction 33 : ZooFullException (" + Zoo.NBR_CAGES + " cages) ---");
         System.out.println("isZooFull : " + myZoo.isZooFull());
-        addAnimal(myZoo, unknown);                 // the zoo already has 3 animals -> ZooFullException
+        addAnimal(myZoo, unknown);
         addAnimal(myZoo, new Animal("Canidae", "Rex", 2, true));
 
 
@@ -109,8 +107,8 @@ public class Main {
 
         System.out.println("\n--- Instruction 34 : InvalidAgeException ---");
         Animal badAnimal = new Animal("Canidae", "Rex", -2, true);
-        addAnimal(myZoo, badAnimal);               // negative age -> InvalidAgeException
-        addAnimal(myZoo, unknown);                 // a free cage again -> added
+        addAnimal(myZoo, badAnimal);
+        addAnimal(myZoo, unknown);
 
 
         System.out.println("\n--- compareZoo ---");
