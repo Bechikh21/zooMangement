@@ -1,15 +1,12 @@
 package tn.esprit.gestionzoo.entities;
 
-// Instruction 20
 public class Penguin extends Aquatic {
 
     protected float swimmingDepth;
 
-    // Instruction 22
     public Penguin() {
     }
 
-    // Instruction 22
     public Penguin(String family, String name, int age, boolean isMammal, String habitat, float swimmingDepth) {
         super(family, name, age, isMammal, habitat);
         this.swimmingDepth = swimmingDepth;
@@ -23,13 +20,11 @@ public class Penguin extends Aquatic {
         this.swimmingDepth = swimmingDepth;
     }
 
-    // Instruction 28 : swim() is abstract in Aquatic, so Penguin must redefine it
     @Override
     public void swim() {
         System.out.println("This penguin is swimming");
     }
 
-    // Instruction 23
     @Override
     public String toString() {
         return "Penguin{family='" + family + "', name='" + name + "', age=" + age

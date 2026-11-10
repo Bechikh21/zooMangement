@@ -27,12 +27,10 @@ public class ZooManagement {
 
     public static void main(String[] args) {
 
-        // Instruction 1
         int nbrCages = 20;
         String zooName = "my zoo";
         System.out.println(zooName + " has " + nbrCages + " cages");
 
-        // Instruction 2 : read the values from the keyboard, with input validation
         Scanner sc = new Scanner(System.in);
 
         System.out.print("Enter the name of the zoo: ");
@@ -52,16 +50,13 @@ public class ZooManagement {
                 }
             } else {
                 System.out.println("Invalid input: please enter a whole number.");
-                sc.next(); // throw away the wrong input, otherwise the loop never ends
+                sc.next();
             }
         }
 
-        // Instruction 3 : display the changes
         System.out.println(zooName + " has " + nbrCages + " cages");
 
-        // Instruction 5 : create an animal and a zoo and assign their attributes
         Animal lion = new Animal();
-        // Instruction 18 : attributes are private, they are accessed through setters
         lion.setFamily("Felidae");
         lion.setName("Simba");
         lion.setAge(5);
@@ -70,44 +65,35 @@ public class ZooManagement {
         Zoo myZoo = new Zoo();
         myZoo.setName(zooName);
         myZoo.setCity("Tunis");
-        // Instruction 14 : nbrCages is the constant Zoo.NBR_CAGES and cannot be assigned
 
-        // Instruction 6/7 : with only the parameterized constructors, "new Animal()" and "new Zoo()"
-        // stop compiling (Java no longer generates the default constructor). Fixed by declaring them.
         Animal tiger = new Animal("Felidae", "Shere Khan", 7, true);
         Animal eagle = new Animal("Accipitridae", "Aquila", 3, false);
         Zoo zoo = new Zoo(zooName, "Tunis");
 
-        // Instruction 8 / 9
         System.out.println("\n--- displayZoo() ---");
         zoo.displayZoo();
         System.out.println("--- println(zoo) and println(zoo.toString()) ---");
-        System.out.println(zoo);              // before toString() was redefined: Zoo@<hashcode>
-        System.out.println(zoo.toString());   // same result: println calls toString() implicitly
+        System.out.println(zoo);
+        System.out.println(zoo.toString());
         System.out.println(lion);
 
-        // Instruction 10
         System.out.println("\n--- addAnimal ---");
         addAnimal(zoo, lion);
         addAnimal(zoo, tiger);
         addAnimal(zoo, eagle);
 
-        // Instruction 11
         System.out.println("\n--- displayAnimals ---");
         zoo.displayAnimals();
 
         System.out.println("\n--- searchAnimal ---");
         System.out.println("Search lion : " + zoo.searchAnimal(lion));
-        Animal lionCopy = new Animal("Felidae", "Simba", 5, true); // identical but a different object
+        Animal lionCopy = new Animal("Felidae", "Simba", 5, true);
         System.out.println("Search identical copy of lion : " + zoo.searchAnimal(lionCopy));
-        // The copy is found at the same index because the search compares names, not references.
 
-        // Instruction 12 : uniqueness
         System.out.println("\n--- uniqueness ---");
         addAnimal(zoo, lion);
         addAnimal(zoo, lionCopy);
 
-        // Instruction 13
         System.out.println("\n--- removeAnimal ---");
         System.out.println("Remove tiger : " + zoo.removeAnimal(tiger));
         System.out.println("Remove tiger again : " + zoo.removeAnimal(tiger));
@@ -120,14 +106,12 @@ public class ZooManagement {
         }
         System.out.println("isZooFull after : " + zoo.isZooFull());
 
-        // Instruction 16
         System.out.println("\n--- compareZoo ---");
         Zoo zoo2 = new Zoo("Friguia", "Enfidha");
         addAnimal(zoo2, new Animal("Giraffidae", "Gigi", 4, true));
         Zoo biggest = Zoo.compareZoo(zoo, zoo2);
         System.out.println("The zoo with the most animals is : " + biggest.getName());
 
-        // Instruction 18 : validation through the setters
         System.out.println("\n--- encapsulation ---");
         Animal badAnimal = new Animal("Canidae", "Rex", -2, true);
         System.out.println(badAnimal);
@@ -139,12 +123,7 @@ public class ZooManagement {
         Zoo badZoo = new Zoo("   ", "Sfax");
         System.out.println(badZoo);
 
-        // Instruction 21 : instances created with the default constructors
-        // Instruction 22 : after adding the parameterized constructors, these lines stopped compiling
-        // (no more implicit default constructor); fixed by declaring the default constructors explicitly.
         System.out.println("\n--- inheritance ---");
-        // Instruction 28 : Aquatic is now abstract and can no longer be instantiated
-        // Aquatic aquatic = new Aquatic();
         Terrestrial terrestrial = new Terrestrial();
         Dolphin dolphin = new Dolphin();
         Penguin penguin = new Penguin();
@@ -152,8 +131,6 @@ public class ZooManagement {
         System.out.println(dolphin);
         System.out.println(penguin);
 
-        // Instruction 22 / 23 : parameterized constructors and redefined toString()
-        // Aquatic shark = new Aquatic("Lamnidae", "Bruce", 12, false, "Ocean");   // abstract since instruction 28
         Terrestrial elephant = new Terrestrial("Elephantidae", "Dumbo", 8, true, 4);
         Dolphin flipper = new Dolphin("Delphinidae", "Flipper", 6, true, "Sea", 35.5f);
         Penguin pingu = new Penguin("Spheniscidae", "Pingu", 3, false, "Antarctica", 120.0f);
@@ -161,12 +138,10 @@ public class ZooManagement {
         System.out.println(flipper);
         System.out.println(pingu);
 
-        // Instruction 24 / 28 : since swim() is abstract, Penguin redefines it too
         System.out.println("\n--- swim() ---");
-        flipper.swim();  // This dolphin is swimming
-        pingu.swim();    // This penguin is swimming
+        flipper.swim();
+        pingu.swim();
 
-        // Instruction 26
         System.out.println("\n--- aquatic animals of the zoo ---");
         zoo2.addAquaticAnimal(flipper);
         zoo2.addAquaticAnimal(pingu);
@@ -174,23 +149,18 @@ public class ZooManagement {
         zoo2.addAquaticAnimal(new Penguin("Spheniscidae", "Skipper", 5, false, "Antarctica", 250.5f));
         zoo2.addAquaticAnimal(new Penguin("Spheniscidae", "Kowalski", 4, false, "Antarctica", 180.0f));
 
-        // Instruction 27 : each element is declared as Aquatic but runs the swim() of its real type
-        // (dynamic binding / polymorphism)
         zoo2.makeAquaticAnimalsSwim();
 
-        // Instruction 29
         System.out.println("Max penguin swimming depth : " + zoo2.maxPenguinSwimmingDepth());
 
-        // Instruction 30
         zoo2.displayNumberOfAquaticsByType();
 
-        // Instruction 31
         System.out.println("\n--- equals() ---");
         Penguin pinguCopy = new Penguin("Spheniscidae", "Pingu", 3, false, "Antarctica", 50.0f);
         Penguin pinguElsewhere = new Penguin("Spheniscidae", "Pingu", 3, false, "Zoo pool", 120.0f);
-        System.out.println("pingu.equals(pinguCopy) : " + pingu.equals(pinguCopy));             // true
-        System.out.println("pingu.equals(pinguElsewhere) : " + pingu.equals(pinguElsewhere));   // false
-        System.out.println("pingu.equals(flipper) : " + pingu.equals(flipper));                 // false
+        System.out.println("pingu.equals(pinguCopy) : " + pingu.equals(pinguCopy));
+        System.out.println("pingu.equals(pinguElsewhere) : " + pingu.equals(pinguElsewhere));
+        System.out.println("pingu.equals(flipper) : " + pingu.equals(flipper));
 
         sc.close();
     }
